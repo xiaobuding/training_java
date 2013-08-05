@@ -1,7 +1,5 @@
 package training.exercise;
 
-import com.sun.org.apache.xerces.internal.impl.msg.XMLMessageFormatter_ja;
-
 import java.util.Scanner;
 
 /**
@@ -39,6 +37,11 @@ public class Exercise {
                 case 9:
                     exercise.findWanshu();
                     break;
+                case 11:
+                    //【程序11】题目：有1、2、3、4个数字，能组成多少个互不相同且无重复数字的三位数？都是多少？
+                    // 1.程序分析：可填在百位、十位、个位的数字都是1、2、3、4。组成所有的排列后再去 掉不满足条件的排列。
+                    exercise.concatNum();
+                    break;
                 case 99:
                     return;
                 default:
@@ -56,21 +59,34 @@ public class Exercise {
      * n-1比n-2月份多出来那部分不会增加。
      * 结论：当月的兔子数目=前两个月的兔子数目之和
      */
+//    void rabbits() {
+//        int a = 0;
+//        int b = 1;
+//        int count = 1;
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("请输入您要查看的月份？：");
+//        int month = scanner.nextInt();
+//
+//        //从二月份开始进入for循环
+//        //第一个月直接跳过循环 返回count=1
+//        for(int i=2;i<=month;i++){
+//            count = a+b;/*当月的兔子数等于前两个月的兔子数的和*/
+//            a = b;
+//            b = count;
+//        }
+//        System.out.println("第 " + month + " 月的兔子总数为 " + count + " 对！");
+//    }
+
+    /**
+     * 第二种方法，调用递归的方法
+     */
     void rabbits() {
-        int a = 0;
-        int b = 1;
-        int count = 1;
         Scanner scanner = new Scanner(System.in);
         System.out.println("请输入您要查看的月份？：");
         int month = scanner.nextInt();
 
-        //从二月份开始进入for循环
-        //第一个月直接跳过循环 返回count=1
-        for(int i=2;i<=month;i++){
-            count = a+b;/*当月的兔子数等于前两个月的兔子数的和*/
-            a = b;
-            b = count;
-        }
+        int count = this.countRabbits(month);
+
         System.out.println("第 " + month + " 月的兔子总数为 " + count + " 对！");
     }
 
@@ -193,12 +209,59 @@ public class Exercise {
      */
     void findWanshu(){
         for(int i=1; i<= 1000; i++){
-            if (i == s) {
-
+            int count = 0;
+            for(int j = 1; j <= i/2; j++){
+                if(i%j == 0){
+                    count = count + j;
+                }
+            }
+            if(count == i){
+                System.out.println(i);
             }
         }
     }
 
+    /**
+     * 011
+     */
+    void concatNum(){
+        int count = 0;
+        for(int i = 1; i < 5; i++){
+            int sum;
+            int sum3;
+            int sum2;
+            int sum1;
+            sum3 = i * 100;
+            for (int j = 1; j < 5; j++) {
+                if(j != i){
+                    sum2 = j * 10;
+                    for (int k = 1; k < 5; k++) {
+                        if(j != k && k != i){
+                            sum1 = k;
+                            sum = sum1 + sum2 + sum3;
+                            System.out.println(sum);
+                            count++;
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("count: " + count);
+    }
+
+
+    /**
+     * 001的递归实现
+     * @param month   月数
+     * @return 当月的兔子对数
+     */
+    private int countRabbits(int month){
+        int count = 1;
+        if(month >= 3){
+            count = countRabbits(month-1)+countRabbits(month-2) ;
+        }
+        return count;
+    }
     /**
      *针对004的递归调用方法
      * @param num
