@@ -1,3 +1,5 @@
+import overload.OverLoad;
+
 /**
  * Created by Administrator on 13-8-10.
  */
@@ -8,5 +10,9 @@ public class Test {
         System.out.println("--------------------------------------");
         Vehicle car = new Vehicle("小汽车",120,5);
         car.drive();
+
+        System.out.println("**************************************");
+        OverLoad overLoad = new OverLoad();
+//        System.out.println(overLoad.sum(5,9));
     }
 }

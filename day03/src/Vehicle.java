@@ -6,6 +6,8 @@ public class Vehicle {
     private double speed;
     private int peoples;//承载人数
 
+    Vehicle(){}
+
     Vehicle(String name,double speed,int peoples){
         this.name = name;
         this.speed = speed;
