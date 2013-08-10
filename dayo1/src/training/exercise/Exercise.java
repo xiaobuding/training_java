@@ -215,6 +215,7 @@ public class Exercise {
                     count = count + j;
                 }
             }
+
             if(count == i){
                 System.out.println(i);
             }
