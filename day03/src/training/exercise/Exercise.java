@@ -1,5 +1,6 @@
 package training.exercise;
 
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -29,8 +30,18 @@ public class Exercise {
 
     public static void main(String[] args) {
         Exercise exercise = new Exercise();
+        Date date1 = new Date();
         exercise.random1();
+        Date date2 = new Date();
+        long aa = date2.getTime()-date1.getTime();
+
         System.out.println("***********************");
+        Date date11 = new Date();
         exercise.random2();
+        Date date22 = new Date();
+        long bb = date22.getTime()-date11.getTime();
+
+        System.out.println("Random所用时间为：" + aa +"ms");
+        System.out.println("Math.random()所用时间为：" + bb + "ms");
     }
 }
