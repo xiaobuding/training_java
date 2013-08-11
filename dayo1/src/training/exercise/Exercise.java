@@ -1,5 +1,7 @@
 package training.exercise;
 
+import com.sun.org.apache.xerces.internal.impl.msg.XMLMessageFormatter_ja;
+
 import java.util.Scanner;
 
 /**
@@ -37,14 +39,6 @@ public class Exercise {
                 case 9:
                     exercise.findWanshu();
                     break;
-                case 11:
-                    //【程序11】题目：有1、2、3、4个数字，能组成多少个互不相同且无重复数字的三位数？都是多少？
-                    // 1.程序分析：可填在百位、十位、个位的数字都是1、2、3、4。组成所有的排列后再去 掉不满足条件的排列。
-                    exercise.concatNum();
-                    break;
-                case 12:
-                    exercise.bonus();
-                    break;
                 case 99:
                     return;
                 default:
@@ -62,34 +56,21 @@ public class Exercise {
      * n-1比n-2月份多出来那部分不会增加。
      * 结论：当月的兔子数目=前两个月的兔子数目之和
      */
-//    void rabbits() {
-//        int a = 0;
-//        int b = 1;
-//        int count = 1;
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("请输入您要查看的月份？：");
-//        int month = scanner.nextInt();
-//
-//        //从二月份开始进入for循环
-//        //第一个月直接跳过循环 返回count=1
-//        for(int i=2;i<=month;i++){
-//            count = a+b;/*当月的兔子数等于前两个月的兔子数的和*/
-//            a = b;
-//            b = count;
-//        }
-//        System.out.println("第 " + month + " 月的兔子总数为 " + count + " 对！");
-//    }
-
-    /**
-     * 第二种方法，调用递归的方法
-     */
     void rabbits() {
+        int a = 0;
+        int b = 1;
+        int count = 1;
         Scanner scanner = new Scanner(System.in);
         System.out.println("请输入您要查看的月份？：");
         int month = scanner.nextInt();
 
-        int count = this.countRabbits(month);
-
+        //从二月份开始进入for循环
+        //第一个月直接跳过循环 返回count=1
+        for(int i=2;i<=month;i++){
+            count = a+b;/*当月的兔子数等于前两个月的兔子数的和*/
+            a = b;
+            b = count;
+        }
         System.out.println("第 " + month + " 月的兔子总数为 " + count + " 对！");
     }
 
@@ -212,88 +193,12 @@ public class Exercise {
      */
     void findWanshu(){
         for(int i=1; i<= 1000; i++){
-            int count = 0;
-            for(int j = 1; j <= i/2; j++){
-                if(i%j == 0){
-                    count = count + j;
-                }
-            }
+            if (i == s) {
 
-            if(count == i){
-                System.out.println(i);
             }
         }
     }
 
-    /**
-     * 011
-     */
-    void concatNum(){
-        int count = 0;
-        for(int i = 1; i < 5; i++){
-            int sum;
-            int sum3;
-            int sum2;
-            int sum1;
-            sum3 = i * 100;
-            for (int j = 1; j < 5; j++) {
-                if(j != i){
-                    sum2 = j * 10;
-                    for (int k = 1; k < 5; k++) {
-                        if(j != k && k != i){
-                            sum1 = k;
-                            sum = sum1 + sum2 + sum3;
-                            System.out.println(sum);
-                            count++;
-                        }
-                    }
-                }
-            }
-        }
-        System.out.println("count: " + count);
-    }
-
-    /**012
-     * 低于或等于10万元时，奖金可提10%；
-     利润高于10万元，低于20万元时，低于10万元的部分按10%提成，高于10万元的部分，可可提成7.5%；
-     20万到40万之间时，高于20万元的部分，可提成5%；
-     40万到60万之间时高于40万元的部分，可提成3%；
-     60万到100万之间时，高于60万元的部分，可提成1.5%，
-     高于100万元时，超过100万元的部分按1%提成
-     */
-    void bonus(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("请输入今年的利润额（单位：万）：");
-        double profit = scanner.nextDouble();//单位：万
-        double bonus=0;
-        if(profit<=10){
-            bonus = profit*10/100;
-        }else if(profit>10 && profit<=20){
-            bonus = 10*10/100 + (profit-10)*7.5/100;
-        }else if(profit>20 && profit<=40){
-            bonus = 10*10/100 + 10*7.5/100 + (profit-20)*5/100;
-        }else if(profit>40 && profit<=60){
-            bonus = 10*10/100 + 10*7.5/100 + (40-20)*5/100 + (profit-40)*3/100;
-        }else if(profit>60 && profit<=100){
-            bonus = 10*10/100 + 10*7.5/100 + (40-20)*5/100 + (60-40)*3/100 + (profit-60)*1.5/100;
-        }else if(profit>100){
-            bonus = 10*10/100 + 10*7.5/100 + (40-20)*5/100 + (60-40)*3/100 + (100-60)*1.5/100 + (profit-100)*1.5/100;
-        }
-        System.out.println("您的奖金为：" + bonus);
-    }
-
-    /**
-     * 001的递归实现
-     * @param month   月数
-     * @return 当月的兔子对数
-     */
-    private int countRabbits(int month){
-        int count = 1;
-        if(month >= 3){
-            count = countRabbits(month-1)+countRabbits(month-2) ;
-        }
-        return count;
-    }
     /**
      *针对004的递归调用方法
      * @param num
@@ -329,60 +234,4 @@ public class Exercise {
         }
         return sumFactors;
     }
-
-    /**
-     * 012 调用方法
-     * 低于或等于10万元时，奖金可提10%；
-     */
-    private double bunus_level1(double profit){
-        double bonus;
-        bonus = profit * 10 / 100;
-        return bonus;
-    }/**
-     * 012 调用方法
-     * 利润高于10万元，低于20万元时，低于10万元的部分按10%提成，高于10万元的部分，可可提成7.5%；
-     */
-    private double bunus_level2(double profit){
-        double bonus;
-        bonus = bunus_level1(10) + (profit - 10)*7.5/100;
-        return bonus;
-    }
-    /**
-     * 012 调用方法
-     * 20万到40万之间时，高于20万元的部分，可提成5%；
-     */
-    private double bunus_level3(double profit){
-        double bonus;
-        bonus = profit * 10 / 100;
-        return bonus;
-    }
-    /**
-     * 012 调用方法
-     * 40万到60万之间时高于40万元的部分，可提成3%；
-     */
-    private double bunus_level4(double profit){
-        double bonus;
-        bonus = profit * 10 / 100;
-        return bonus;
-    }
-    /**
-     * 012 调用方法
-     * 60万到100万之间时，高于60万元的部分，可提成1.5%，
-     */
-    private double bunus_level5(double profit){
-        double bonus;
-        bonus = profit * 10 / 100;
-        return bonus;
-    }
-    /**
-     * 012 调用方法
-     * 高于100万元时，超过100万元的部分按1%提成
-     */
-    private double bunus_level6(double profit){
-        double bonus;
-        bonus = profit * 10 / 100;
-        return bonus;
-    }
-
-
 }
