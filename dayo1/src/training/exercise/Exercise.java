@@ -193,7 +193,7 @@ public class Exercise {
      */
     void findWanshu(){
         for(int i=1; i<= 1000; i++){
-            if (i == s) {
+            if (i == 0) {
 
             }
         }
